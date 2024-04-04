@@ -1,58 +1,93 @@
 "use client";
-import { createClient } from "@/server/supabase/client";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@radix-ui/react-navigation-menu";
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import { type User } from "@supabase/auth-js";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./button";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { createClient } from "@/server/supabase/client";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 const supabase = createClient();
 
 export default function NavBar({ user }: { user: User | null }) {
   const router = useRouter();
+  console.log(user);
   return (
-    <nav className="flex h-16 w-full flex-row justify-between px-16 py-4">
-      <Link href="/" className="text-2xl font-bold">
-        BaoBank
-      </Link>
+    <nav className="flex h-16 w-full flex-row justify-between px-16 py-2">
+      <div className="flex h-full flex-row items-center">
+        <Image
+          src="/bao_bank_logo.jpg"
+          alt="BaoBank Logo"
+          width={50}
+          height={70}
+          className={"object-cover "}
+        />
+        <Link href="/" className="flex flex-row text-2xl font-bold ">
+          BaoBank
+        </Link>
+      </div>
+
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <NavigationMenuLink>Link</NavigationMenuLink>
-            </NavigationMenuContent>
+            <Link href="/warehouses" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Warehouses
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
       <div className="flex items-center">
         {user ? (
-          <Link href="/profile" className="mr-4">
-            {user.email}
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar className="border-2 border-foreground">
+                <AvatarImage
+                  src={`https://api.dicebear.com/8.x/open-peeps/svg?seed=${user.email}`}
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem>
+                <Link href="/profile" passHref>
+                  Profile
+                </Link>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                key={"logout"}
+                className="hover:bg-destructive hover:text-white"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  router.refresh();
+                }}
+              >
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
-          <Link href="/login" className="mr-4">
-            Login
-          </Link>
-        )}
-        {user ? (
-          <Button
-            onClick={async () => {
-              await supabase.auth.signOut();
-              router.push("/");
-            }}
-          >
-            Logout
-          </Button>
-        ) : (
-          <Link href="/signup">Signup</Link>
+          <Button onClick={() => router.push("/login")}>Login</Button>
         )}
       </div>
     </nav>

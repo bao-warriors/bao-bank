@@ -23,7 +23,7 @@
     --border: 240 37% 20%;
     --input: 240 37% 20%;
     --ring: 98 39% 40%;
-    --radius: 0.5rem;
+    --radius: 1rem;
   }
 
   .dark {
@@ -51,4 +51,5 @@
 
 * {
   box-sizing: border-box;
+  overflow-y: hidden;
 }
