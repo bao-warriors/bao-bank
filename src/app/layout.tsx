@@ -11,7 +11,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="">{children}</body>
+      <body className="h-screen w-screen">{children}</body>
     </html>
   );
 }
