@@ -1,5 +1,6 @@
 "use server";
 import { createClient } from "@/server/supabase/server";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function updateUser(formData: FormData) {
@@ -24,4 +25,6 @@ export async function updateUser(formData: FormData) {
     console.error("Error updating user", error);
     redirect("/error");
   }
+
+  revalidatePath("/profile");
 }
