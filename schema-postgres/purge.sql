@@ -1,5 +1,9 @@
 -- IF YOU RUN THIS ON PRODUCTION I'LL MURDER YOUR FAMILY IN FRONT OF YOU!
 
+-- Drop procedures
+DROP PROCEDURE IF EXISTS send_message_to_warehouse_by_name;
+DROP PROCEDURE IF EXISTS create_workdays_schedule;
+
 -- Purge tables
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS warehouse_availabilities;
