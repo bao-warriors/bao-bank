@@ -33,8 +33,8 @@ export default function NavBar({ user }: { user: User | null }) {
           src="/bao_bank_logo.jpg"
           alt="BaoBank Logo"
           width={50}
-          height={70}
-          className={"object-cover "}
+          height={50}
+          className={"rounded-full "}
         />
         <Link href="/" className="flex flex-row text-2xl font-bold ">
           BaoBank
@@ -73,10 +73,20 @@ export default function NavBar({ user }: { user: User | null }) {
                   Profile
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/profile" passHref>
+                  Your Messages
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/profile/warehouses" passHref>
+                  Your Warehouses
+                </Link>
+              </DropdownMenuItem>
 
               <DropdownMenuItem
                 key={"logout"}
-                className="hover:bg-destructive hover:text-white"
+                className=" "
                 onClick={async () => {
                   await supabase.auth.signOut();
                   router.refresh();
