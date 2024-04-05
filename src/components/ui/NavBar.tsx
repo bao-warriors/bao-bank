@@ -74,7 +74,7 @@ export default function NavBar({ user }: { user: User | null }) {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/profile" passHref>
+                <Link href="/profile/messages" passHref>
                   Your Messages
                 </Link>
               </DropdownMenuItem>
