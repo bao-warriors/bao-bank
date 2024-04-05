@@ -1,34 +1,33 @@
 "use client";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { type User } from "@supabase/auth-js";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Button } from "./button";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { createClient } from "@/server/supabase/client";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+import { type User } from "@supabase/auth-js";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Button } from "./button";
 const supabase = createClient();
 
 export default function NavBar({ user }: { user: User | null }) {
   const router = useRouter();
-  console.log(user);
   return (
-    <nav className="flex h-16 w-full flex-row justify-between px-16 py-2">
-      <div className="flex h-full flex-row items-center">
+    <nav className="flex h-16 w-full flex-row justify-between border border-b px-16 py-2">
+      <div className="flex h-full flex-row items-center overflow-hidden">
         <Image
           src="/bao_bank_logo.jpg"
           alt="BaoBank Logo"
@@ -36,7 +35,7 @@ export default function NavBar({ user }: { user: User | null }) {
           height={50}
           className={"rounded-full "}
         />
-        <Link href="/" className="flex flex-row text-2xl font-bold ">
+        <Link href="/" className="flex flex-row  text-2xl font-bold ">
           BaoBank
         </Link>
       </div>
