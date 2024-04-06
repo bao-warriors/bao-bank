@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/server/supabase/server";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Page() {
   const supabase = createClient();
@@ -57,9 +58,16 @@ export default async function Page() {
                 <p className="text-gray-800">
                   Email address: {warehouse.moderator_email}
                 </p>
-                <Button variant={"secondary"} className="w-3/4">
-                  Request Food
-                </Button>
+                <Link href={"/warehouses/" + warehouse.id + "/request"}>
+                  <Button variant={"secondary"} className="w-3/4">
+                    Request Food
+                  </Button>
+                </Link>
+                <Link href={"/warehouses/" + warehouse.id + "/donate"}>
+                  <Button variant={"secondary"} className="w-3/4">
+                    Donate Food
+                  </Button>
+                </Link>
               </CardHeader>
               <CardContent className="mb-4 w-full text-gray-800  md:mr-4 md:w-1/3">
                 {/* Second Section: Opening Times */}
