@@ -1,21 +1,5 @@
-// const json = {
-//     "elements": [
-//     {
-//         "type": "dropdown",
-//         "name": "dietary",
-//         "title": "Do you have any dietary requirement?",
-//         "isRequired" : true,
-//         "showNoneItem": true,
-//         "showOtherItem": true,
-//         "choices": ["Gluten free", "Dairy free and lactose free", "Vegetarian", "Vegan", "Tree nut and peanut allergies", "Fish and shellfish allergies"]
-// }],
-// "showQuestionNumbers": false,
-// "fitToContainer": true
-// };
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export default function Page() {
   return (

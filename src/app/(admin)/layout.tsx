@@ -9,11 +9,10 @@ export default async function LayoutHome({
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
 
-
   return (
     <main className="flex h-full w-full flex-col items-center justify-start ">
       <NavBar user={data.user} />
-      <section className=" h-full w-full">{children}</section>
+      <section className="flex-1 w-full">{children}</section>
     </main>
   );
 }
