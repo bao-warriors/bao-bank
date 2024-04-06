@@ -1,6 +1,16 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 export default function Page() {
   return (
     <main className="flex h-full w-full flex-grow flex-col items-center justify-center py-6 ">
@@ -58,32 +68,36 @@ export default function Page() {
             {/* Dietary Requirements */}
             <section className={"text-md flex w-full flex-col font-medium"}>
               Dietary Requirements
-              {/* <Input
-                type="text"
-                name="dietary_requirements"
-                id="dietary_requirements"
-              /> */}
-              <select>
-                <option value="None">None</option>
-                <option value="Gluten free">Gluten free</option>
-                <option value="Dairy free and lactose free">
-                  Dairy free and lactose free
-                </option>
-                <option value="Vegetarian"> Vegetarian </option>
-                <option value="Tree nut and peanut allergies">
-                  Tree nut and peanut allergies
-                </option>
-                <option value="Fish and shellfish allergies">
-                  Fish and shellfish allergies
-                </option>
-                <option value="Others">Others (please specify below)</option>
-              </select>
+              <Select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Dietary Requirements</SelectLabel>
+                    <SelectItem value="None">None</SelectItem>
+                    <SelectItem value="Gluten free">Gluten free</SelectItem>
+                    <SelectItem value="Diary free">Diary free</SelectItem>
+                    <SelectItem value="Vegan">Vegan</SelectItem>
+                    <SelectItem value="Tree Nut and peanut allergies">
+                      Tree Nut and peanut allergies
+                    </SelectItem>
+                    <SelectItem value="Fish and shellfish allergies">
+                      Fish and shellfish allergies
+                    </SelectItem>
+                    <SelectItem value="Other">
+                      Others (Please Specify)
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
               <Input
                 type="text"
                 name="color"
                 id="color"
                 style={{ display: "bg-grey" }}
                 placeholder="For other dietary requirements"
+                className="mt-4"
               />
             </section>
             {/* Why do you need the food? */}
