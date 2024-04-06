@@ -1,11 +1,3 @@
-// export default function HomePage() {
-//   return (
-//     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-//       WELCOME TO BAO BANK
-//     </main>
-//   );
-// }
-
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
