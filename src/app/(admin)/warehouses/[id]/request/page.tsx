@@ -15,7 +15,7 @@ export default function Page() {
             className={
               "flex flex-col items-center justify-start gap-6 text-nowrap"
             }
-            action={(formData: FormData) => {
+            action={async (formData: FormData) => {
               "use server";
               console.log(formData);
               redirect("/home");

@@ -6,8 +6,8 @@
 //   );
 // }
 
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Image from "next/image";
 
 const donations_msg = [
@@ -35,7 +35,7 @@ const donations_msg = [
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+    <main className="flex min-h-full flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c]">
       <div className="flex flex-row items-center">
         <Image
           src="/WelcomeBaoBank2.jpg"

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { redirect } from "next/navigation";
 
 export default function Page() {
   return (
@@ -14,6 +15,12 @@ export default function Page() {
             className={
               "flex flex-col items-center justify-start gap-6 text-nowrap"
             }
+            action={async () => {
+              "use server";
+              console.log("Donation submitted");
+
+              redirect("/home");
+            }}
           >
             {" "}
             {/* First Name  */}
@@ -66,13 +73,14 @@ export default function Page() {
               What is your food storage requirements?
               <Input type="text" placeholder="Type here..." />
             </section>
+            <Button
+              variant={"secondary"}
+              type={"submit"}
+              className="text-md flex w-full flex-col items-center justify-end font-medium"
+            >
+              Submit
+            </Button>
           </form>
-          <Button
-            variant={"secondary"}
-            className="text-md mt-4 flex w-full flex-col items-center justify-end font-medium"
-          >
-            Submit
-          </Button>
         </CardContent>
       </Card>
     </main>
