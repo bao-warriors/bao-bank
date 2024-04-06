@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/server/supabase/server";
@@ -17,10 +18,17 @@ export default async function Profile() {
   }
 
   return (
-    <main className="flex h-full w-full flex-grow flex-col items-center justify-center py-6 ">
+    <main className="flex min-h-full w-full flex-grow flex-col items-center justify-center py-6 ">
       <Card className="flex flex-col">
-        <CardHeader>
+        <CardHeader className={"flex flex-row items-center justify-between"}>
           <h1 className="text-3xl font-bold">Profile</h1>
+
+          <Avatar className="h-16 w-16 border-2 border-foreground ">
+            <AvatarImage
+              src={`https://api.dicebear.com/8.x/open-peeps/svg?seed=${user.email}`}
+            />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
         </CardHeader>
         <CardContent>
           <form

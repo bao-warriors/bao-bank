@@ -1,78 +1,31 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+//diable ts errors for this file
+/*ts-ignore*/
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { createClient } from "@/server/supabase/server";
 import Image from "next/image";
 import Link from "next/link";
 
-// Fake data for testing
-const warehouses = [
-  {
-    id: "1",
-    name: "Warehouse A",
-    location: "City A",
-    phone: "12345678",
-    email: "1234567890@3456",
-    monday_start_time: "9:00",
-    monday_end_time: "15:00",
-    tuesday_start_time: "9:00",
-    tuesday_end_time: "15:00",
-    wednesday_start_time: "9:00",
-    wednesday_end_time: "15:00",
-    thursday_start_time: "9:00",
-    thursday_end_time: "15:00",
-    friday_start_time: "9:00",
-    friday_end_time: "15:00",
-    saturday_start_time: "9:00",
-    saturday_end_time: "15:00",
-    sunday_start_time: "9:00",
-    sunday_end_time: "15:00",
-  },
-  {
-    id: "2",
-    name: "Warehouse B",
-    location: "City B",
-    phone: "12345678",
-    email: "1234567890@3456",
-    monday_start_time: "9:00",
-    monday_end_time: "15:00",
-    tuesday_start_time: "9:00",
-    tuesday_end_time: "15:00",
-    wednesday_start_time: "9:00",
-    wednesday_end_time: "15:00",
-    thursday_start_time: "9:00",
-    thursday_end_time: "15:00",
-    friday_start_time: "9:00",
-    friday_end_time: "15:00",
-    saturday_start_time: "9:00",
-    saturday_end_time: "15:00",
-    sunday_start_time: "9:00",
-    sunday_end_time: "15:00",
-  },
-  {
-    id: "3",
-    name: "Warehouse C",
-    location: "City C",
-    phone: "12345678",
-    email: "1234567890@3456",
-    monday_start_time: "9:00",
-    monday_end_time: "15:00",
-    tuesday_start_time: "9:00",
-    tuesday_end_time: "15:00",
-    wednesday_start_time: "9:00",
-    wednesday_end_time: "15:00",
-    thursday_start_time: "9:00",
-    thursday_end_time: "15:00",
-    friday_start_time: "9:00",
-    friday_end_time: "15:00",
-    saturday_start_time: "9:00",
-    saturday_end_time: "15:00",
-    sunday_start_time: "9:00",
-    sunday_end_time: "15:00",
-  },
-  // Add more fake data as needed
-];
+export default async function Page() {
+  const supabase = createClient();
 
-export default function Page() {
+  const { data: warehouses, error } = await supabase
+    .from("warehouses")
+    .select(
+      ` id, name, moderator_name, moderator_email, moderator_phone, warehouse_opening_hours (id, monday_open, monday_close, tuesday_open, tuesday_close, wednesday_open, wednesday_close, thursday_open, thursday_close, friday_open, friday_close, saturday_open, saturday_close, sunday_open, sunday_close) warehouse_location (id, latitude, longitude, address, city, postcode) warehouse_contact (id, phone, email, website`,
+    );
+
+  if (error ?? !warehouses) {
+    console.log(error);
+    return <div>Error loading data</div>;
+  }
+
+  //set types of warehouses
+
+  console.log(warehouses[0]);
+
   return (
     <main className="flex min-h-screen flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c]">
       <div className="page-container pt-6">
@@ -91,7 +44,7 @@ export default function Page() {
 
         {/* Display warehouses */}
         <div className="mt-8 flex flex-col items-center justify-start gap-4 p-4">
-          {warehouses.map((warehouse) => (
+          {warehouses?.map((warehouse) => (
             <Card
               key={warehouse.id}
               className="flex w-full flex-col rounded-lg bg-white p-4 shadow-md md:w-2/3 md:flex-row"
@@ -99,9 +52,11 @@ export default function Page() {
               {/* First Section: Email, Phone Number */}
               <CardHeader className="justify-center">
                 <h1 className="text-2xl font-bold">{warehouse.name}</h1>
-                <p className="text-gray-800">Phone number: {warehouse.phone}</p>
                 <p className="text-gray-800">
-                  Email address: {warehouse.email}
+                  Phone number: {warehouse.moderator_phone}
+                </p>
+                <p className="text-gray-800">
+                  Email address: {warehouse.moderator_email}
                 </p>
                 <Link href={"/warehouses/" + warehouse.id + "/request"}>
                   <Button variant={"secondary"} className="w-3/4">
@@ -118,32 +73,74 @@ export default function Page() {
                 {/* Second Section: Opening Times */}
                 <p className="text-xl font-semibold">Opening Times</p>
                 <p>
-                  Monday: {warehouse.monday_start_time} -{" "}
-                  {warehouse.monday_end_time}
+                  Monday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].monday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].monday_close,
+                  ).toLocaleTimeString()}
                 </p>
                 <p>
-                  Tuesday: {warehouse.tuesday_start_time} -{" "}
-                  {warehouse.tuesday_end_time}
+                  Tuesday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].tuesday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].tuesday_close,
+                  ).toLocaleTimeString()}
                 </p>
                 <p>
-                  Wednesday: {warehouse.wednesday_start_time} -{" "}
-                  {warehouse.wednesday_end_time}
+                  Wednesday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].wednesday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].wednesday_close,
+                  ).toLocaleTimeString()}
                 </p>
                 <p>
-                  Thursday: {warehouse.thursday_start_time} -{" "}
-                  {warehouse.thursday_end_time}
+                  Thursday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].thursday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].thursday_close,
+                  ).toLocaleTimeString()}
                 </p>
                 <p>
-                  Friday: {warehouse.friday_start_time} -{" "}
-                  {warehouse.friday_end_time}
+                  Friday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].friday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].friday_close,
+                  ).toLocaleTimeString()}
                 </p>
                 <p>
-                  Saturday: {warehouse.saturday_start_time} -{" "}
-                  {warehouse.saturday_end_time}
+                  Saturday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].saturday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].saturday_close,
+                  ).toLocaleTimeString()}
                 </p>
                 <p>
-                  Sunday: {warehouse.sunday_start_time} -{" "}
-                  {warehouse.sunday_end_time}
+                  Sunday:{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].sunday_open,
+                  ).toLocaleTimeString()}{" "}
+                  -{" "}
+                  {new Date(
+                    warehouse.warehouse_opening_hours[0].sunday_close,
+                  ).toLocaleTimeString()}
                 </p>
               </CardContent>
               <CardContent className="w-full md:w-1/3">
