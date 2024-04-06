@@ -29,13 +29,13 @@ const donations_msg = [
 export default function HomePage() {
   return (
     <main className="flex min-h-full flex-col bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <div className="flex flex-row items-center">
+      <div className="flex h-[600px] flex-row items-center">
         <Image
           src="/WelcomeBaoBank2.jpg"
           alt="Image"
           width="1920"
-          height="1080"
-          className="h-3/4 w-1/2 object-cover dark:grayscale"
+          height="600"
+          className="h-full w-1/2 object-cover dark:grayscale"
         />
         {/* <h1 className="mt-8  text-4xl font-bold text-white">
           Welcome to Bao Bank
@@ -44,8 +44,8 @@ export default function HomePage() {
           src="/WelcomeBaoBank.jpg"
           alt="Image"
           width="1920"
-          height="110"
-          className="h-3/4 w-1/2 object-cover dark:grayscale"
+          height="600"
+          className="h-full w-1/2 object-cover dark:grayscale"
         />
       </div>
       <div className="flex justify-center">
