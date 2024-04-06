@@ -875,7 +875,9 @@ export default function AddWarehousePage() {
                 </div>
               </section>
               <Button
-                onClick={async () => {
+                onClick={async (e) => {
+                  e.preventDefault();
+
                   console.log("Submit");
 
                   const formData = new FormData();
@@ -969,8 +971,6 @@ export default function AddWarehousePage() {
 
                   //submit
                   await createWarehouse(formData);
-
-                  redirect("/profile/warehouses");
                 }}
                 variant="default"
                 className="h-full w-full self-end text-lg"
