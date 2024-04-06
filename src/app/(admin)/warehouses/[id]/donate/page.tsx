@@ -1,10 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export default function Page() {
   return (
-    <main className="flex h-full w-full flex-grow flex-col items-center justify-center py-6 ">
+    <main className="flex min-h-full w-full flex-grow flex-col items-center justify-center py-6 ">
       <Card className="flex flex-col">
         <CardHeader>
           <h1 className="text-3xl font-bold">Donate Food Form</h1>

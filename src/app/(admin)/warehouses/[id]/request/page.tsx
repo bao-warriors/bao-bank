@@ -1,9 +1,11 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { redirect } from "next/navigation";
 
 export default function Page() {
   return (
-    <main className="flex h-full w-full flex-grow flex-col items-center justify-center py-6 ">
+    <main className="flex min-h-full w-full flex-grow flex-col items-center justify-center py-6 ">
       <Card className="flex flex-col">
         <CardHeader>
           <h1 className="text-3xl font-bold">Request Food Form</h1>
@@ -13,6 +15,11 @@ export default function Page() {
             className={
               "flex flex-col items-center justify-start gap-6 text-nowrap"
             }
+            action={(formData: FormData) => {
+              "use server";
+              console.log(formData);
+              redirect("/home");
+            }}
           >
             {" "}
             {/* First Name  */}
@@ -96,6 +103,7 @@ export default function Page() {
               What are your food requests?
               <Input type="text" placeholder="Type here..." />
             </section>
+            <Button type="submit">Submit</Button>
           </form>
         </CardContent>
       </Card>
